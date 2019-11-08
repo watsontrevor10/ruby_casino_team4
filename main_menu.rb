@@ -3,7 +3,7 @@ require_relative 'coin_toss'
 require_relative 'horse_race'
 require_relative 'roulette'
 require_relative 'rowshambow'
-
+require "pry"
 class Player
 	attr_accessor :name, :wallet
 
@@ -36,7 +36,6 @@ class Player
 		return @wallet.player_wallet
 	end
 end
-
 
 class Wallet
 	attr_accessor :player_wallet
@@ -104,14 +103,16 @@ attr_accessor :player
 				# open horse racing app
         HorseRace.new(@player)
       when "view wallet balance", "view wallet", "wallet", "view"
-        puts ""
-        puts "Your wallet has: $#{@player.money}"
-        puts ""
+				puts ""
+        puts "#{@player.name}, your wallet has: $#{@player.money}"
+				puts ""
+				sleep(1.5)
       when "add money", "add"
         puts "How much money would you like to add?"
         print ">"
         @player.win(gets.to_i)
-        print "You now have: $#{@player.money}"
+				print "#{@player.name}, you now have: $#{@player.money}"
+				sleep(1.5)
 			when "quit", "q", "exit"
 				# exits app
 				puts "Thank you for playing!"
