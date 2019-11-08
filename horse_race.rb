@@ -1,10 +1,9 @@
 # Jacob
-requrie_relative "main_menu"
 
 class HorseRace
 
-  def initialize
-    @player 
+  def initialize(player)
+    @player = player
     @horses = ["Captain", "Lucky", "Last Chance", "Admiral"]
 
     puts "Welcome to the Racetrack!"
