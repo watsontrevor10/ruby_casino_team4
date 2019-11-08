@@ -22,13 +22,17 @@ class Wallet
     @player_wallet = 50
   end
 
+  def wallet_adjustments
+    @adjust_wallet_add = 
+  end
+
 end
 
 
 class Menu
 
   def initialize
-    @player = Player.new 
+    
   end
 
   def start
@@ -51,6 +55,9 @@ class Menu
     puts "Coin Toss"
     puts "Roulette"
     puts "Horse Racing"
+    puts ""
+    puts "View Wallet Balance"
+    puts "Add Money to Wallet"
     puts "Quit"
     puts ""
   
@@ -59,22 +66,29 @@ class Menu
     case @game_choice
     when "blackjack", "black jack"
       # open black_jack app
-      load 'black_jack.rb'
+      
     when "rowshambow", "roshambo", "roshambow", "rowshambo"
       # open rowshambow app
-      load 'rowshambow.rb'
+      
     when "coin toss", "cointoss"
       # open coin toss app
-      load 'coin_toss.rb'
+      
     when "roulette"
       # open roulette app
-      load 'roulette.rb'
+      
     when "horse racing", "horse race", "race"
       # open horse racing app
-      load 'horse_race.rb'
-    when "quit", "q", "exit"d
+      
+    when "quit", "q", "exit"
       # exits app
       puts "Thank you for playing!"
+    when @game_choice.include? "view"
+      puts "-- Wallet --".upcase
+      puts ""
+      puts "Your wallet balance is: $#{@player_wallet}"
+    when @game_choice.include? "add"
+      puts "How much money would you like to add to your wallet?"
+
     else 
       puts "Invalid choice. Try again."
       main_menu
