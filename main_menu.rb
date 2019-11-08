@@ -54,8 +54,9 @@ end
 
 
 class Menu
-
+attr_accessor :player 
   def initialize
+    @wallet = Wallet.new
   end
 
   def start
@@ -72,12 +73,15 @@ class Menu
     puts "-- Welcome to the Casino --"
     puts ""
     puts "- Choose what you want to do -"
-    puts ""
+    puts "-- Games --".upcase
     puts "Black Jack"
     puts "RowShamBow"
     puts "Coin Toss"
     puts "Roulette"
     puts "Horse Racing"
+    puts "-- Wallet --".upcase
+    puts "View Wallet Balance"
+    puts "Add Money to Wallet"
     puts "Quit"
     puts ""
   
@@ -95,14 +99,23 @@ class Menu
 				Coin_toss.new(@player)
 			when "roulette"
 				# open roulette app
-				load 'roulette.rb'
+				Roulette.new(@player)
 			when "horse racing", "horse race", "race"
 				# open horse racing app
-				HorseRace.new(@player)
+        HorseRace.new(@player)
+      when "view wallet balance", "view wallet", "wallet", "view"
+        puts ""
+        puts "Your wallet has: $#{@player.money}"
+        puts ""
+      when "add money", "add"
+        puts "How much money would you like to add?"
+        print ">"
+        @player.win(gets.to_i)
+        print "You now have: $#{@player.money}"
 			when "quit", "q", "exit"
 				# exits app
 				puts "Thank you for playing!"
-				exit
+        exit
 			else 
 				puts "Invalid choice. Try again."
 		end
