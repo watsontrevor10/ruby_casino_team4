@@ -37,6 +37,7 @@ class HorseRace
         @player.lose(bet) 
     end 
     
+    puts "Money: #{@player.money}."
   end
   
 end
