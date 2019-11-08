@@ -56,7 +56,6 @@ end
 class Menu
 
   def initialize
-    @pla
   end
 
   def start
@@ -99,7 +98,7 @@ class Menu
 				load 'roulette.rb'
 			when "horse racing", "horse race", "race"
 				# open horse racing app
-				load 'horse_race.rb'
+				HorseRace.new(@player)
 			when "quit", "q", "exit"
 				# exits app
 				puts "Thank you for playing!"
