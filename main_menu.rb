@@ -102,7 +102,7 @@ attr_accessor :player
 				Roulette.new(@player)
 			when "horse racing", "horse race", "race"
 				# open horse racing app
-        load 'horse_race.rb'
+        HorseRace.new(@player)
       when "view wallet balance", "view wallet", "wallet", "view"
         puts ""
         puts "Your wallet has: $#{@player.money}"
