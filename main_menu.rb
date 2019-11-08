@@ -46,6 +46,7 @@ class Menu
     puts ""
     puts "- Choose what you want to do -"
     puts ""
+    puts "Black Jack"
     puts "RowShamBow"
     puts "Coin Toss"
     puts "Roulette"
@@ -56,6 +57,9 @@ class Menu
     @game_choice = gets.strip.downcase
 
     case @game_choice
+    when "blackjack", "black jack"
+      # open black_jack app
+      load 'black_jack.rb'
     when "rowshambow", "roshambo", "roshambow", "rowshambo"
       # open rowshambow app
       load 'rowshambow.rb'
