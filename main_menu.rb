@@ -93,7 +93,7 @@ attr_accessor :player
 				load 'black_jack.rb'
 			when "rowshambow", "roshambo", "roshambow", "rowshambo"
 				# open rowshambow app
-				load 'rowshambow.rb'
+				ROW_SHAM_BOW.new(@player)
 			when "coin toss", "cointoss"
 				# open coin toss app
 				Coin_toss.new(@player)

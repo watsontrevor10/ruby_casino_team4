@@ -13,6 +13,7 @@ class BlackJack
 	def select_bet
 		puts "Place Bet: "
 		puts "Money: #{@player.wallet}"
+		
 	end
 end
 
