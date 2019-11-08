@@ -5,38 +5,66 @@ require_relative 'roulette'
 require_relative 'rowshambow'
 
 class Player
-attr_accessor :name
+	attr_accessor :name, :wallet
 
-  def initialize
+  def initialize(name)
     # main variables
-    @player_name = nil
-  end
+		@name = name
+		@wallet = Wallet.new
+	end
+	
+	# if player wins call this method with bet val
+	def win(val)
+		@wallet.add(val)
+	end
 
+	# if player loses call this method with bet val
+	def lose(val)
+		@wallet.add(-1 * val)
+	end
+
+	def kick
+		puts "You are broke, good bye!"
+		exit
+	end
+
+	# to show player's current money, call this method
+	def money
+		if @wallet.neg?
+			kick
+		end
+		return @wallet.player_wallet
+	end
 end
 
 
 class Wallet
-
+	attr_accessor :player_wallet
   def initialize
     # main wallet variable
     @player_wallet = 50
   end
-
+	def add(val)
+		@player_wallet += val
+	end
+	def neg?
+		@player_wallet < 0
+	end
 end
 
 
 class Menu
 
   def initialize
-    @player = Player.new 
+    @pla
   end
 
   def start
     puts "What is your name"
 
-    @player_name = gets.strip
+    @player = Player.new(gets.strip)
     puts ""
-    puts "Welcome #{@player_name}"
+    puts "Welcome #{@player.name}"
 
     main_menu
   end
@@ -57,30 +85,30 @@ class Menu
     @game_choice = gets.strip.downcase
 
     case @game_choice
-    when "blackjack", "black jack"
-      # open black_jack app
-      load 'black_jack.rb'
-    when "rowshambow", "roshambo", "roshambow", "rowshambo"
-      # open rowshambow app
-      load 'rowshambow.rb'
-    when "coin toss", "cointoss"
-      # open coin toss app
-      load 'coin_toss.rb'
-    when "roulette"
-      # open roulette app
-      load 'roulette.rb'
-    when "horse racing", "horse race", "race"
-      # open horse racing app
-      load 'horse_race.rb'
-    when "quit", "q", "exit"d
-      # exits app
-      puts "Thank you for playing!"
-    else 
-      puts "Invalid choice. Try again."
-      main_menu
-    end
-  end
-
+			when "blackjack", "black jack"
+				# open black_jack app
+				load 'black_jack.rb'
+			when "rowshambow", "roshambo", "roshambow", "rowshambo"
+				# open rowshambow app
+				load 'rowshambow.rb'
+			when "coin toss", "cointoss"
+				# open coin toss app
+				Coin_toss.new(@player)
+			when "roulette"
+				# open roulette app
+				load 'roulette.rb'
+			when "horse racing", "horse race", "race"
+				# open horse racing app
+				load 'horse_race.rb'
+			when "quit", "q", "exit"
+				# exits app
+				puts "Thank you for playing!"
+				exit
+			else 
+				puts "Invalid choice. Try again."
+		end
+		main_menu
+	end
 end
 
 Wallet.new
