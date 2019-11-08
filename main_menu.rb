@@ -5,42 +5,66 @@ require_relative 'roulette'
 require_relative 'rowshambow'
 
 class Player
-attr_accessor :name
+	attr_accessor :name, :wallet
 
-  def initialize
+  def initialize(name)
     # main variables
-    @player_name = nil
-  end
+		@name = name
+		@wallet = Wallet.new
+	end
+	
+	# if player wins call this method with bet val
+	def win(val)
+		@wallet.add(val)
+	end
 
+	# if player loses call this method with bet val
+	def lose(val)
+		@wallet.add(-1 * val)
+	end
+
+	def kick
+		puts "You are broke, good bye!"
+		exit
+	end
+
+	# to show player's current money, call this method
+	def money
+		if @wallet.neg?
+			kick
+		end
+		return @wallet.player_wallet
+	end
 end
 
 
 class Wallet
-
+	attr_accessor :player_wallet
   def initialize
     # main wallet variable
     @player_wallet = 50
   end
-
-  def wallet_adjustments
-    @adjust_wallet_add = 
-  end
-
+	def add(val)
+		@player_wallet += val
+	end
+	def neg?
+		@player_wallet < 0
+	end
 end
 
 
 class Menu
-
+attr_accessor :player 
   def initialize
-    
+    @wallet = Wallet.new
   end
 
   def start
     puts "What is your name"
 
-    @player_name = gets.strip
+    @player = Player.new(gets.strip)
     puts ""
-    puts "Welcome #{@player_name}"
+    puts "Welcome #{@player.name}"
 
     main_menu
   end
@@ -49,13 +73,13 @@ class Menu
     puts "-- Welcome to the Casino --"
     puts ""
     puts "- Choose what you want to do -"
-    puts ""
+    puts "-- Games --".upcase
     puts "Black Jack"
     puts "RowShamBow"
     puts "Coin Toss"
     puts "Roulette"
     puts "Horse Racing"
-    puts ""
+    puts "-- Wallet --".upcase
     puts "View Wallet Balance"
     puts "Add Money to Wallet"
     puts "Quit"
@@ -64,37 +88,39 @@ class Menu
     @game_choice = gets.strip.downcase
 
     case @game_choice
-    when "blackjack", "black jack"
-      # open black_jack app
-      
-    when "rowshambow", "roshambo", "roshambow", "rowshambo"
-      # open rowshambow app
-      
-    when "coin toss", "cointoss"
-      # open coin toss app
-      
-    when "roulette"
-      # open roulette app
-      
-    when "horse racing", "horse race", "race"
-      # open horse racing app
-      
-    when "quit", "q", "exit"
-      # exits app
-      puts "Thank you for playing!"
-    when @game_choice.include? "view"
-      puts "-- Wallet --".upcase
-      puts ""
-      puts "Your wallet balance is: $#{@player_wallet}"
-    when @game_choice.include? "add"
-      puts "How much money would you like to add to your wallet?"
-
-    else 
-      puts "Invalid choice. Try again."
-      main_menu
-    end
-  end
-
+			when "blackjack", "black jack"
+				# open black_jack app
+				load 'black_jack.rb'
+			when "rowshambow", "roshambo", "roshambow", "rowshambo"
+				# open rowshambow app
+				load 'rowshambow.rb'
+			when "coin toss", "cointoss"
+				# open coin toss app
+				Coin_toss.new(@player)
+			when "roulette"
+				# open roulette app
+				Roulette.new(@player)
+			when "horse racing", "horse race", "race"
+				# open horse racing app
+        load 'horse_race.rb'
+      when "view wallet balance", "view wallet", "wallet", "view"
+        puts ""
+        puts "Your wallet has: $#{@player.money}"
+        puts ""
+      when "add money", "add"
+        puts "How much money would you like to add?"
+        print ">"
+        @player.win(gets.to_i)
+        print "You now have: $#{@player.money}"
+			when "quit", "q", "exit"
+				# exits app
+				puts "Thank you for playing!"
+        exit
+			else 
+				puts "Invalid choice. Try again."
+		end
+		main_menu
+	end
 end
 
 Wallet.new
