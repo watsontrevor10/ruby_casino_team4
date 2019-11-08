@@ -11,12 +11,17 @@ class Roulette
 	def initialize(player)
 		@player = player
 		puts "Welcome to Roulette!"
-		@bet = 5
+    @bet = nil
 		@iter = 0
 		start
   end
   
   def start
+
+    puts "Please place your bet"
+    print ">"
+    @bet = gets.to_i
+    
 
     win = "red" 
     if rand(2) == 0
