@@ -1,0 +1,32 @@
+Need to rely on classes
+  person class
+  each game can have it's own class
+
+
+  Main menu
+
+  class for each game
+    can pick any game (coin flip, roulette (choice between black or red), black jack )
+
+  wallet class (with remove/add classes)
+
+  player class
+
+
+  build out the structure of the app together as a group, then split up the app into individual chunks
+
+
+  have each game be its own file
+    use require_relative 'file_name'
+
+group
+Trevor Watson
+Jacob Bradford
+Tristan Johnson
+David Mendez
+
+
+Games
+- coin toss
+- Rock/Paper/Scissors - Rowshambow
+- 
