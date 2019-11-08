@@ -17,5 +17,3 @@ class HorseRace
   end
 
 end
-
-HorseRace.new
