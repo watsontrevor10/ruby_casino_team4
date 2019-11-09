@@ -43,7 +43,7 @@ class Wallet
 	attr_accessor :player_wallet
   def initialize
     # main wallet variable
-    @player_wallet = 50
+    @player_wallet = 500
   end
 	def add(val)
 		@player_wallet += val
