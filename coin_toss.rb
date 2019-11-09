@@ -21,6 +21,7 @@ class Coin_toss
 			puts "Make a guess (H/T):"
 		end
 		choice = gets.strip.downcase
+		puts choice
 		case choice
 			when "h"
 				if win == choice
@@ -38,10 +39,13 @@ class Coin_toss
 					puts "You lose!"
 					player.lose(@bet)
 				end
+			when "q", "quit"
+				puts "Thanks for playing!"
+				return nil
 			else
 				if @iter > 0
 					puts "Thanks for playing Coin Toss! Good-Bye!"
-					return
+					return nil
 				else
 					puts "Invalid choice."
 				end
