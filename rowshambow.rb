@@ -108,7 +108,7 @@
     end
 
     def lose
-      puts "haha #{@name} your a Loser!".bold.colorize(:red)
+      puts "haha #{@name} you're a Loser!".bold.colorize(:red)
       puts "YOU SUCK! hahaha".bold.colorize(:red)
       @player.lose(@bet)
       puts "Money $#{@player.money}"

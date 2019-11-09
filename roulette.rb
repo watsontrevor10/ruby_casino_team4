@@ -9,28 +9,30 @@ class Roulette
       #need an if statment for each guess type: red or black 
     
 	def initialize(player)
-		@player = player
-		puts "Welcome to Roulette!"
+    @player = player
+    puts ""
+    puts "-- Welcome to Roulette! --".upcase.colorize(:green)
     @bet = nil
     @iter = 0
     bet_checker
   end
   
   def bet_checker 
-
-    puts "Please place your bet"
-    print ">"
+    puts ""
+    puts "Please place your bet. (type quit to exit)"
+    print "> "
     
     @bet = gets.strip.downcase
 
   case @bet
     when "quit", "q"
+      puts ""
       puts "Thank you for playing"
       return nil
-      puts "test"
     else 
       @bet = @bet.to_i
     if @bet > @player.money 
+      puts ""
       puts "You do not have enough money.  Your balance is currently: $#{player.money}"
       @bet = nil
       bet_checker
@@ -43,20 +45,20 @@ end
 
   def start
 
-    
-    # puts @bet
-
     win = "red" 
     if rand(2) == 0
 			win = "black"
     end
     
-		puts "Computer guess: #{win}" #remove eventually, for troubleshooting
-    puts "Current bet: #{@bet}"
+	#	puts "Computer guess: #{win}" #remove eventually, for troubleshooting
+  puts ""  
+  puts "Current bet: #{@bet}"
     
-		if @iter > 0
+    if @iter > 0
+      puts ""
 			puts "Make another guess (red/black) to keep playing or press any other key to quit:"
-		else
+    else
+      puts ""
 			puts "Make a guess (red/black):"
     end
     
@@ -64,34 +66,42 @@ end
     
 		case choice
 			when "red"
-				if win == choice
-					puts "You win! This time . . . "
+        if win == choice
+          puts ""
+					puts "You win! This time . . . ".colorize(:green)
 					player.win(@bet)
-				else
-					puts "You lose! The house always wins . . . "
+        else
+          puts ""
+					puts "You lose! The house always wins . . . ".colorize(:red)
 					player.lose(@bet)
 				end
 			when "black"
-				if win == choice
-					puts "You win! This time . . ."
+        if win == choice
+          puts ""
+					puts "You win! This time . . .".colorize(:green)
 					player.win(@bet)
-				else
-					puts "You lose! The house always wins . . ."
+        else
+          puts ""
+					puts "You lose! The house always wins . . .".colorize(:red)
 					player.lose(@bet)
         end
       when "quit", "q"
-        "Thank you for playing"
+        puts ""
+        puts "Thank you for playing"
         return
 			else
-				if @iter > 0
+        if @iter > 0
+          puts ""
 					puts "Thanks for playing Roulette! Good-Bye!"
 					return nil
-				else
-					puts "Invalid choice."
+        else
+          puts ""
+					puts "Invalid choice.".colorize(:red)
 				end
     end
     
-		puts "Money: #{@player.money}"
+    puts ""
+		puts "You now have: $#{@player.money} in your Wallet".colorize(:blue)
 		@iter += 1
 		bet_checker
   end

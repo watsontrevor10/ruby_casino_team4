@@ -4,6 +4,8 @@ require_relative 'horse_race'
 require_relative 'roulette'
 require_relative 'rowshambow'
 require "pry"
+require "colorize"
+
 class Player
 	attr_accessor :name, :wallet
 
@@ -106,13 +108,13 @@ attr_accessor :player
 				puts ""
         puts "#{@player.name}, your wallet has: $#{@player.money}"
 				puts ""
-				sleep(1.5)
+				sleep(2)
       when "add money", "add"
         puts "How much money would you like to add?"
         print ">"
         @player.win(gets.to_i)
 				print "#{@player.name}, you now have: $#{@player.money}"
-				sleep(1.5)
+				sleep(2)
 			when "quit", "q", "exit"
 				# exits app
 				puts "Thank you for playing!"
