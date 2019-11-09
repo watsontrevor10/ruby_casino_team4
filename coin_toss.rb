@@ -10,7 +10,7 @@ class Coin_toss
 	end
 	def start
 		win = "h"
-		if rand(1) == 0
+		if rand(2) == 0
 			win = "t"
 		end
 		puts "Computer guess: #{win}"

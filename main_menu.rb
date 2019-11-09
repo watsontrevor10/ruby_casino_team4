@@ -3,7 +3,7 @@ require_relative 'coin_toss'
 require_relative 'horse_race'
 require_relative 'roulette'
 require_relative 'rowshambow'
-
+require "pry"
 class Player
 	attr_accessor :name, :wallet
 
@@ -37,7 +37,6 @@ class Player
 	end
 end
 
-
 class Wallet
 	attr_accessor :player_wallet
   def initialize
@@ -54,8 +53,9 @@ end
 
 
 class Menu
-
+attr_accessor :player 
   def initialize
+    @wallet = Wallet.new
   end
 
   def start
@@ -72,12 +72,15 @@ class Menu
     puts "-- Welcome to the Casino --"
     puts ""
     puts "- Choose what you want to do -"
-    puts ""
+    puts "-- Games --".upcase
     puts "Black Jack"
     puts "RowShamBow"
     puts "Coin Toss"
     puts "Roulette"
     puts "Horse Racing"
+    puts "-- Wallet --".upcase
+    puts "View Wallet Balance"
+    puts "Add Money to Wallet"
     puts "Quit"
     puts ""
   
@@ -89,20 +92,31 @@ class Menu
 				load 'black_jack.rb'
 			when "rowshambow", "roshambo", "roshambow", "rowshambo"
 				# open rowshambow app
-				load 'rowshambow.rb'
+				ROW_SHAM_BOW.new(@player)
 			when "coin toss", "cointoss"
 				# open coin toss app
 				Coin_toss.new(@player)
 			when "roulette"
 				# open roulette app
-				load 'roulette.rb'
+				Roulette.new(@player)
 			when "horse racing", "horse race", "race"
 				# open horse racing app
-				HorseRace.new(@player)
+        HorseRace.new(@player)
+      when "view wallet balance", "view wallet", "wallet", "view"
+				puts ""
+        puts "#{@player.name}, your wallet has: $#{@player.money}"
+				puts ""
+				sleep(1.5)
+      when "add money", "add"
+        puts "How much money would you like to add?"
+        print ">"
+        @player.win(gets.to_i)
+				print "#{@player.name}, you now have: $#{@player.money}"
+				sleep(1.5)
 			when "quit", "q", "exit"
 				# exits app
 				puts "Thank you for playing!"
-				exit
+        exit
 			else 
 				puts "Invalid choice. Try again."
 		end
