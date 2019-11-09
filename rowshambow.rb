@@ -53,8 +53,9 @@
  
   class ROW_SHAM_BOW
  
-    def initialize 
-      @name = "Goku"
+    def initialize(player)
+      @player= player
+      @name = player.name
         puts "------------------------- ROW-SHAM-BOW! -------------------------".bold.colorize(:green)
         puts "Welcome #{@name}! You are not ready for this! ".bold.colorize(:black)
         game_play
@@ -66,9 +67,12 @@
       puts " 2) Paper".bold.colorize(:yellow)
       puts " 3) Scissor".bold.colorize(:yellow)
       puts " 4) Wimp out".bold.colorize(:yellow)
-      puts "Choos 1 - 3 #{@name}:".bold.colorize(:purple)
-
+      puts "Choose 1 - 3 #{@name}:".bold.colorize(:purple)
       choice = gets.to_i
+
+      print "Place your BET! fool!"
+      @bet = get.to_i
+
        case choice
        when 1
         puts "rock "
@@ -95,23 +99,27 @@
     end
 
     def win
-        puts "Really you WON!".bold.colorize(:green)
-        puts "that was ALL LUCK!!!".bold.colorize(:green)
+        puts "Really you WON #{@name}!".bold.colorize(:green)
+        puts "That was ALL LUCK!!!".bold.colorize(:green)
+        @player.win(@bet)
+        puts "Money#{@player.money}"
     end
 
     def lose
-      puts "haha Loser!".bold.colorize(:red)
-      puts "YOU SUCK!".bold.colorize(:red)
+      puts "haha #{@name} your a Loser!".bold.colorize(:red)
+      puts "YOU SUCK! hahaha".bold.colorize(:red)
+      @player.lose(@bet)
+      puts "Money#{@player.money}"
     end
 
     def tie
       puts "Really a TIE!".bold.colorize(:black)
-      puts "whatever".bold.colorize(:black)
+      puts "whatever then #{@name}".bold.colorize(:black)
     end
     
     def out 
-      puts "GO CRY TO MOMMA!!!".bold.colorize(:red)
-      puts "YOU ARE BROKE ANYWAYS".bold.colorize(:red)
+      puts "GO CRY TO MOMMA #{@name}!!!".bold.colorize(:red)
+      puts "#{@name} YOU ARE BROKE ANYWAYS".bold.colorize(:red)
     end
 
     def rock      
@@ -135,13 +143,13 @@
       case  computer
       when "rock"
           puts "CPU: chose ROCK!"
-          tie
+          win
       when "paper"
         puts "CPU: chose PAPER!"
-        lose
+        tie
       when "scissor"
         puts "CPU: chose scissor!"
-        win
+        lose
       else
         puts "ERROR! "
         game_play
@@ -152,13 +160,13 @@
       case  computer
       when "rock"
         puts "CPU: chose ROCK!"
-        tie
+        lose
       when "paper"
         puts "CPU: chose PAPER!"
-        lose
+        win
       when "scissor"
         puts "CPU: chose scissor!"
-        win
+        tie
       else
         puts "ERROR! ".bold.colorize(:black)
         game_play
@@ -167,4 +175,3 @@
 
    end
  
-  ROW_SHAM_BOW.new# David
