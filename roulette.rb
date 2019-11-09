@@ -12,16 +12,39 @@ class Roulette
 		@player = player
 		puts "Welcome to Roulette!"
     @bet = nil
-		@iter = 0
-		start
+    @iter = 0
+    bet_checker
   end
   
-  def start
+  def bet_checker 
 
     puts "Please place your bet"
     print ">"
-    @bet = gets.to_i
     
+    @bet = gets.strip.downcase
+
+  case @bet
+    when "quit", "q"
+      puts "Thank you for playing"
+      return nil
+      puts "test"
+    else 
+      @bet = @bet.to_i
+    if @bet > @player.money 
+      puts "You do not have enough money.  Your balance is currently: $#{player.money}"
+      @bet = nil
+      bet_checker
+    else  
+      start      
+    end
+  end
+
+end
+
+  def start
+
+    
+    # puts @bet
 
     win = "red" 
     if rand(2) == 0
@@ -55,11 +78,14 @@ class Roulette
 				else
 					puts "You lose! The house always wins . . ."
 					player.lose(@bet)
-				end
+        end
+      when "quit", "q"
+        "Thank you for playing"
+        return
 			else
 				if @iter > 0
 					puts "Thanks for playing Roulette! Good-Bye!"
-					return
+					return nil
 				else
 					puts "Invalid choice."
 				end
@@ -67,7 +93,7 @@ class Roulette
     
 		puts "Money: #{@player.money}"
 		@iter += 1
-		start
+		bet_checker
   end
   
 end
