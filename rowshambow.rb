@@ -70,8 +70,10 @@
       puts "Choose 1 - 3 #{@name}:".bold.colorize(:purple)
       choice = gets.to_i
 
-      print "Place your BET! fool!"
+      if choice < 4 
+        print "Place your BET! fool!".bold.colorize(:black)
       @bet = gets.to_i
+      end 
 
        case choice
        when 1
@@ -85,7 +87,7 @@
         scissor
        when 4
         out
-         exit
+         return 
        else
          puts "Invalid"
          game_play
@@ -102,14 +104,14 @@
         puts "Really you WON #{@name}!".bold.colorize(:green)
         puts "That was ALL LUCK!!!".bold.colorize(:green)
         @player.win(@bet)
-        puts "Money#{@player.money}"
+        puts "Money $#{@player.money}"
     end
 
     def lose
       puts "haha #{@name} your a Loser!".bold.colorize(:red)
       puts "YOU SUCK! hahaha".bold.colorize(:red)
       @player.lose(@bet)
-      puts "Money#{@player.money}"
+      puts "Money $#{@player.money}"
     end
 
     def tie
@@ -120,6 +122,7 @@
     def out 
       puts "GO CRY TO MOMMA #{@name}!!!".bold.colorize(:red)
       puts "#{@name} YOU ARE BROKE ANYWAYS".bold.colorize(:red)
+      return nil
     end
 
     def rock      
@@ -175,3 +178,4 @@
 
    end
  
+  
