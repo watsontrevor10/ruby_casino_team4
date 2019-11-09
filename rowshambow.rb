@@ -71,7 +71,7 @@
       choice = gets.to_i
 
       print "Place your BET! fool!"
-      @bet = get.to_i
+      @bet = gets.to_i
 
        case choice
        when 1
