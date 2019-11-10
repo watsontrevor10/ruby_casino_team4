@@ -61,29 +61,30 @@ attr_accessor :player
   end
 
   def start
-    puts "What is your name"
+		puts "Enter your name:".bold.colorize(:black)
+		puts ">".bold.colorize(:white)
 
     @player = Player.new(gets.strip)
     puts ""
-    puts "Welcome #{@player.name}"
+    puts "Welcome to the Casino #{@player.name}!".bold.colorize(:cyan)
 
     main_menu
   end
 
   def main_menu
-    puts "-- Welcome to the Casino --"
+    # puts "-- Welcome to the Casino --"
     puts ""
-    puts "- Choose what you want to do -"
-    puts "-- Games --".upcase
-    puts "Black Jack"
-    puts "RowShamBow"
-    puts "Coin Toss"
-    puts "Roulette"
-    puts "Horse Racing"
-    puts "-- Wallet --".upcase
-    puts "View Wallet Balance"
-    puts "Add Money to Wallet"
-    puts "Quit"
+    puts "- Choose which Game you want to play -".bold.colorize(:cyan)
+    puts "------------------------ GAMES! ------------------------".upcase.bold.colorize(:cyan)
+    puts "Black Jack".bold.colorize(:magenta)
+    puts "RowShamBow".bold.colorize(:magenta)
+    puts "Coin Toss".bold.colorize(:magenta)
+    puts "Roulette".bold.colorize(:magenta)
+    puts "Horse Racing".bold.colorize(:magenta)
+    puts "                      $ Wallet $                            ".upcase.bold.colorize(:green)
+    puts "View Wallet Balance".bold.colorize(:green)
+    puts "Add Money to Wallet".bold.colorize(:green)
+    puts "Quit".bold.colorize(:red)
     puts ""
   
     @game_choice = gets.strip.downcase
@@ -95,32 +96,32 @@ attr_accessor :player
 			when "rowshambow", "roshambo", "roshambow", "rowshambo"
 				# open rowshambow app
 				ROW_SHAM_BOW.new(@player)
-			when "coin toss", "cointoss"
+			when "coin toss", "cointoss".bold.colorize(:black)
 				# open coin toss app
 				Coin_toss.new(@player)
-			when "roulette"
+			when "roulette".bold.colorize(:black)
 				# open roulette app
 				Roulette.new(@player)
-			when "horse racing", "horse race", "race"
+			when "horse racing", "horse race", "race".bold.colorize(:black)
 				# open horse racing app
         HorseRace.new(@player)
-      when "view wallet balance", "view wallet", "wallet", "view"
+      when "view wallet balance", "view wallet", "wallet", "view".bold.colorize(:green)
 				puts ""
-        puts "#{@player.name}, your wallet has: $#{@player.money}"
+        puts "#{@player.name}, your wallet has: $#{@player.money}".bold.colorize(:green)
 				puts ""
 				sleep(2)
       when "add money", "add"
-        puts "How much money would you like to add?"
+        puts "How much money would you like to add?".bold.colorize(:green)
         print ">"
         @player.win(gets.to_i)
-				print "#{@player.name}, you now have: $#{@player.money}"
+				print "#{@player.name}, you now have: $#{@player.money}".bold.colorize(:green)
 				sleep(2)
 			when "quit", "q", "exit"
 				# exits app
-				puts "Thank you for playing!"
+				puts "Thank you for playing!".bold.colorize(:black)
         exit
 			else 
-				puts "Invalid choice. Try again."
+				puts "Invalid choice. Try again.".bold.colorize(:black)
 		end
 		main_menu
 	end
