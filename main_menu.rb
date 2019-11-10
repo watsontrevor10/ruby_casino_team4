@@ -3,141 +3,85 @@ require_relative 'coin_toss'
 require_relative 'horse_race'
 require_relative 'roulette'
 require_relative 'rowshambow'
+require_relative 'player'
 require "pry"
-class Player
-	attr_accessor :name, :wallet, :in_debt
-
-  def initialize(name,dollars)
-    # main variables
-		@name = name
-		@wallet = Wallet.new(dollars)
-		@in_debt = false
-	end
-	
-	# if player wins call this method with bet val
-	def win(val)
-		@wallet.add(val)
-	end
-
-	# if player loses call this method with bet val
-	def lose(val)
-		@wallet.add(-1 * val)
-	end
-
-	def view
-		if @in_debt
-			puts "#{@name}: $#{@wallet.amount}".red
-		else
-			puts "#{@name}: $#{@wallet.amount}".green
-	end
-
-	def can_select
-		!@in_debt
-	end
-
-	# to show player's current money, call this method
-	def money
-		if @wallet.neg?
-			@in_debt = true
-		end
-		return @wallet.amount
-	end
-end
-
-class Wallet
-	attr_accessor :amount
-  def initialize(val)
-    # main wallet variable
-    @amount =  val
-  end
-	def add(val)
-		@amount += val
-	end
-	def neg?
-		@amount < 0
-	end
-end
-
+require "colorize"
 
 class Menu
-attr_accessor :player 
+	attr_accessor :player, :players
 	def initialize
-		@players = [Player.new("Greg",200),Player.new("Adam",350), Player.new("Bill",1000)]
+		@players = [Player.new("Adam",350), Player.new("Bill",1000), Player.new("Broke Fool", -100)]
 		@player = nil
-  end
-
+	end
+	def update
+		@player = @user.player
+		@players = @user.players
+	end
 	def start
-    player_menu
+		@user = PlayerMenu.new(@players,@player)
+		@user.player_menu
+		update
     puts ""
-    puts "Welcome #{@player.name}"
+    puts "Welcome to the Casino, #{@player.name}!".bold.colorize(:cyan)
 
 		main_menu
 	end
-	
-	def player_menu
-		puts "-- Current Players --".yellow
-		@players.each do |player|
-			player.view
-		end
-		
-	end
 
-  def main_menu
-    puts "-- Welcome to the Casino --"
+	def main_menu
+		# puts "-- Welcome to the Casino --"
+		update
     puts ""
-    puts "- Choose what you want to do -"
-    puts "-- Games --".upcase
-    puts "Black Jack"
-    puts "RowShamBow"
-    puts "Coin Toss"
-    puts "Roulette"
-    puts "Horse Racing"
-    puts "-- Wallet --".upcase
-    puts "View Wallet Balance"
-    puts "Add Money to Wallet"
-    puts "Quit"
+    puts "- Choose which Game you want to play -".bold.colorize(:cyan)
+    puts "------------------------ GAMES! ------------------------".upcase.bold.colorize(:cyan)
+    puts "Black Jack".bold.colorize(:magenta)
+    puts "RowShamBow".bold.colorize(:magenta)
+    puts "Coin Toss".bold.colorize(:magenta)
+    puts "Roulette".bold.colorize(:magenta)
+		puts "Horse Racing".bold.colorize(:magenta)
+		puts ""
+    puts "                   (◕_◕) Player (◕_◕)                          ".upcase.bold.colorize(:green)
+    puts "View Wallet Balance".bold.colorize(:green)
+		puts "View Player Menu".bold.colorize(:green)
+		puts ""
+    puts "Quit".bold.colorize(:red)
     puts ""
   
     @game_choice = gets.strip.downcase
 
-    case @game_choice
-			when "blackjack", "black jack"
+  	case @game_choice
+			when "blackjack", "black jack", "black"
 				# open black_jack app
 				load 'black_jack.rb'
-			when "rowshambow", "roshambo", "roshambow", "rowshambo"
+			when "rowshambow", "roshambo", "roshambow", "rowshambo", "rosh"
 				# open rowshambow app
 				ROW_SHAM_BOW.new(@player)
-			when "coin toss", "cointoss"
+			when "coin toss", "cointoss", "coin", "toss"
 				# open coin toss app
 				Coin_toss.new(@player)
-			when "roulette"
+			when "roulette", "roul"
 				# open roulette app
 				Roulette.new(@player)
-			when "horse racing", "horse race", "race"
+			when "horse racing", "horse race", "race", "horse"
 				# open horse racing app
         HorseRace.new(@player)
-      when "view wallet balance", "view wallet", "wallet", "view"
+      when "view wallet balance", "view wallet", "wallet", "view w"
 				puts ""
-        puts "#{@player.name}, your wallet has: $#{@player.money}"
+        puts "#{@player.name}, your wallet has: $#{@player.money}".bold.colorize(:green)
 				puts ""
-				sleep(1.5)
-      when "add money", "add"
-        puts "How much money would you like to add?"
-        print ">"
-        @player.win(gets.to_i)
-				print "#{@player.name}, you now have: $#{@player.money}"
-				sleep(1.5)
+				sleep(2)
+      when "player menu", "view player menu", "player", "players"
+        @user.player_menu
 			when "quit", "q", "exit"
 				# exits app
-				puts "Thank you for playing!"
+				puts "Thank you for playing!".bold.colorize(:black)
         exit
 			else 
-				puts "Invalid choice. Try again."
+				puts "Invalid choice. Try again.".bold.colorize(:black)
 		end
+		sleep(0.9)
 		main_menu
 	end
 end
 
-Wallet.new
 menu_init = Menu.new
 menu_init.start

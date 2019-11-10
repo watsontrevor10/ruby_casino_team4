@@ -19,13 +19,13 @@ class HorseRace
     sleep(3)
     puts "Race!!!"
     sleep(3)
-    puts "And there off!"
+    puts "And their off!"
     sleep(3)
     puts "#{@horses.sample} takes the lead!"
     sleep(3)
     puts "Oh #{@horses.sample} pulls ahead!"
     sleep(3)
-    puts "Its neck and neck!"
+    puts "It's neck and neck!"
     sleep(3)
 
     winning_horse = @horses.sample
@@ -47,7 +47,7 @@ class HorseRace
   
   def select_horse
     puts "Welcome to the Racetrack!"
-    puts "Plese select a horse."
+    puts "Please select a horse."
     puts "--- Horses ---"
     
     @horses.each_with_index do |horse, index|

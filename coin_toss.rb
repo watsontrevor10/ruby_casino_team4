@@ -1,13 +1,15 @@
 # Trevor
 class Coin_toss
-	attr_accessor :player, :bet
+  attr_accessor :player, :bet
+  
 	def initialize(player)
 		@player = player
 		puts "Welcome to Coin Toss!"
 		@bet = 5
 		@iter = 0
 		start
-	end
+  end
+  
 	def start
 		win = "h"
 		if rand(2) == 0
@@ -19,9 +21,9 @@ class Coin_toss
 			puts "Make another guess (H/T) to keep playing or press any other key to quit:"
 		else
 			puts "Make a guess (H/T):"
-		end
+    end
+    
 		choice = gets.strip.downcase
-		puts choice
 		case choice
 			when "h"
 				if win == choice
@@ -50,7 +52,8 @@ class Coin_toss
 					puts "Invalid choice."
 				end
 		end
-		puts "Money: #{@player.money}"
+    
+    puts "Money: #{@player.money}"
 		@iter += 1
 		start
 	end
