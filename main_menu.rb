@@ -5,12 +5,13 @@ require_relative 'roulette'
 require_relative 'rowshambow'
 require "pry"
 class Player
-	attr_accessor :name, :wallet
+	attr_accessor :name, :wallet, :in_debt
 
-  def initialize(name)
+  def initialize(name,dollars)
     # main variables
 		@name = name
-		@wallet = Wallet.new
+		@wallet = Wallet.new(dollars)
+		@in_debt = false
 	end
 	
 	# if player wins call this method with bet val
@@ -23,50 +24,63 @@ class Player
 		@wallet.add(-1 * val)
 	end
 
-	def kick
-		puts "You are broke, good bye!"
-		exit
+	def view
+		if @in_debt
+			puts "#{@name}: $#{@wallet.amount}".red
+		else
+			puts "#{@name}: $#{@wallet.amount}".green
+	end
+
+	def can_select
+		!@in_debt
 	end
 
 	# to show player's current money, call this method
 	def money
 		if @wallet.neg?
-			kick
+			@in_debt = true
 		end
-		return @wallet.player_wallet
+		return @wallet.amount
 	end
 end
 
 class Wallet
-	attr_accessor :player_wallet
-  def initialize
+	attr_accessor :amount
+  def initialize(val)
     # main wallet variable
-    @player_wallet = 50
+    @amount =  val
   end
 	def add(val)
-		@player_wallet += val
+		@amount += val
 	end
 	def neg?
-		@player_wallet < 0
+		@amount < 0
 	end
 end
 
 
 class Menu
 attr_accessor :player 
-  def initialize
-    @wallet = Wallet.new
+	def initialize
+		@players = [Player.new("Greg",200),Player.new("Adam",350), Player.new("Bill",1000)]
+		@player = nil
   end
 
-  def start
-    puts "What is your name"
-
-    @player = Player.new(gets.strip)
+	def start
+    player_menu
     puts ""
     puts "Welcome #{@player.name}"
 
-    main_menu
-  end
+		main_menu
+	end
+	
+	def player_menu
+		puts "-- Current Players --".yellow
+		@players.each do |player|
+			player.view
+		end
+		
+	end
 
   def main_menu
     puts "-- Welcome to the Casino --"
