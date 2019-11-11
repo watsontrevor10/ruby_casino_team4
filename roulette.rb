@@ -39,7 +39,7 @@ class Roulette
             puts "Invalid choice, try again".red
             bet_type_initiator
           else
-            puts "Place your bet!".orange
+            puts "Place your bet!"
             print "> "
             @bet = gets.to_i
             number_start
@@ -57,7 +57,7 @@ def color_bet_checker
       if rand(2) == 0
 			@color_win = "black"
       end
-    puts "Place your bet!".orange
+    puts "Place your bet!"
     print "> "
     @bet = gets.to_i
     color_start
