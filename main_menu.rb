@@ -45,13 +45,26 @@ class Menu
 		puts ""
     puts "Quit".bold.colorize(:red)
     puts ""
-  
+		
+		if @player.money <= 0 
+			puts ". . .".red
+			sleep(2)
+			puts "Wait! You don't even have money to play!".bold.colorize(:red)
+			puts "Please select another player!".green
+			sleep(2)
+			@user.player = nil
+			@user.swap_player
+			main_menu
+			return nil
+		end
     @game_choice = gets.strip.downcase
 
   	case @game_choice
 			when "blackjack", "black jack", "black"
 				# open black_jack app
-				load 'black_jack.rb'
+				#BlackJack.new(@player)
+				"Sorry! All Black Jack tables are full!".bold.colorize(:red)
+				sleep(2)
 			when "rowshambow", "roshambo", "roshambow", "rowshambo", "rosh"
 				# open rowshambow app
 				ROW_SHAM_BOW.new(@player)

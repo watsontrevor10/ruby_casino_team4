@@ -51,7 +51,7 @@ class Wallet
 		@amount += val
 	end
 	def neg?
-		@amount < 0
+		@amount <= 0
 	end
 end
 
@@ -86,10 +86,11 @@ class PlayerMenu
 			puts "Create new player".green
 			puts "Switch players".yellow
 			puts "Retire player".red
-			puts "Main Menu".yellow
+			puts "Go to Casino".bold.colorize(:green)
 			print "> ".bold.colorize(:white)
 			choice = gets.strip.downcase
-			if choice == "q" || choice == "quit" || choice == "m" || choice == "menu" || choice == "main menu"
+			if choice == "q" || choice == "quit" || choice == "m" || choice == "menu" || choice == "main menu" ||	
+				 choice == "casino" || choice == "go" || choice == "go to casino" || choice == "g"
 				return choice if choice 
 			else
 				case choice
@@ -135,9 +136,9 @@ class PlayerMenu
 				else
 					puts "Choose #{player.name}?".bold.colorize(:red)
 				end
-					print "y or any key for next player > ".bold.colorize(:white)
+					print "y to select / any other key to continue > ".bold.colorize(:white)
 					case gets.strip.downcase
-						when "y"
+						when "y", player.name.downcase
 							if player.can_select
 								@player = player
 							else
