@@ -3,13 +3,14 @@ require_relative 'coin_toss'
 require_relative 'horse_race'
 require_relative 'roulette'
 require_relative 'rowshambow'
+require_relative 'player'
 require "pry"
 require "colorize"
 
 class Player
 	attr_accessor :name, :wallet
 
-  def initialize(name)
+  def initialize(name, wallet)
     # main variables
 		@name = name
 		@wallet = Wallet.new
@@ -46,86 +47,88 @@ class Wallet
     @player_wallet = 500
   end
 	def add(val)
-		@player_wallet += val
-	end
-	def neg?
-		@player_wallet < 0
-	end
+    @player_wallet += val
+  end
+
 end
 
-
 class Menu
-attr_accessor :player 
-  def initialize
-    @wallet = Wallet.new
+	attr_accessor :player, :players
+	def initialize
+		@players = [Player.new("Adam",350), Player.new("Bill",1000), Player.new("Broke Fool", -100)]
+		@player = nil
   end
-
-  def start
-    puts "What is your name"
-
-    @player = Player.new(gets.strip)
-    puts ""
-    puts "Welcome #{@player.name}"
-
-    main_menu
+  
+	def update
+		@player = @user.player
+		@players = @user.players
   end
-
-  def main_menu
-    puts "-- Welcome to the Casino --"
+  
+	def start
+		@user = PlayerMenu.new(@players,@player)
+		@user.player_menu
+		update
     puts ""
-    puts "- Choose what you want to do -"
-    puts "-- Games --".upcase
-    puts "Black Jack"
-    puts "RowShamBow"
-    puts "Coin Toss"
-    puts "Roulette"
-    puts "Horse Racing"
-    puts "-- Wallet --".upcase
-    puts "View Wallet Balance"
-    puts "Add Money to Wallet"
-    puts "Quit"
+    puts "Welcome to the Casino, #{@player.name}!".bold.colorize(:cyan)
+
+		main_menu
+	end
+
+	def main_menu
+		# puts "-- Welcome to the Casino --"
+		update
+    puts ""
+    puts "- Choose which Game you want to play -".bold.colorize(:cyan)
+    puts "------------------------ GAMES! ------------------------".upcase.bold.colorize(:cyan)
+    puts "Black Jack".bold.colorize(:magenta)
+    puts "RowShamBow".bold.colorize(:magenta)
+    puts "Coin Toss".bold.colorize(:magenta)
+    puts "Roulette".bold.colorize(:magenta)
+		puts "Horse Racing".bold.colorize(:magenta)
+		puts ""
+    puts "                   (◕_◕) Player (◕_◕)                          ".upcase.bold.colorize(:green)
+    puts "View Wallet Balance".bold.colorize(:green)
+		puts "View Player Menu".bold.colorize(:green)
+		puts ""
+    puts "Quit".bold.colorize(:red)
     puts ""
   
     @game_choice = gets.strip.downcase
 
-    case @game_choice
-			when "blackjack", "black jack"
+  	case @game_choice
+			when "blackjack", "black jack", "black"
 				# open black_jack app
 				load 'black_jack.rb'
-			when "rowshambow", "roshambo", "roshambow", "rowshambo"
+			when "rowshambow", "roshambo", "roshambow", "rowshambo", "rosh"
 				# open rowshambow app
 				ROW_SHAM_BOW.new(@player)
-			when "coin toss", "cointoss"
+			when "coin toss", "cointoss", "coin", "toss"
 				# open coin toss app
 				Coin_toss.new(@player)
-			when "roulette"
+			when "roulette", "roul"
 				# open roulette app
 				Roulette.new(@player)
-			when "horse racing", "horse race", "race"
+			when "horse racing", "horse race", "race", "horse"
 				# open horse racing app
         HorseRace.new(@player)
-      when "view wallet balance", "view wallet", "wallet", "view"
+      when "view wallet balance", "view wallet", "wallet", "view w"
 				puts ""
-        puts "#{@player.name}, your wallet has: $#{@player.money}"
+        puts "#{@player.name}, your wallet has: $#{@player.money}".bold.colorize(:green)
 				puts ""
 				sleep(2)
-      when "add money", "add"
-        puts "How much money would you like to add?"
-        print ">"
-        @player.win(gets.to_i)
-				print "#{@player.name}, you now have: $#{@player.money}"
-				sleep(2)
+      when "player menu", "view player menu", "player", "players"
+        @user.player_menu
 			when "quit", "q", "exit"
 				# exits app
-				puts "Thank you for playing!"
+				puts "Thank you for playing!".bold.colorize(:black)
         exit
 			else 
-				puts "Invalid choice. Try again."
+				puts "Invalid choice. Try again.".bold.colorize(:black)
 		end
+		sleep(0.9)
 		main_menu
 	end
 end
 
-Wallet.new
 menu_init = Menu.new
 menu_init.start

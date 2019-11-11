@@ -9,7 +9,6 @@ class BlackJack
 		@bet = 0
 		puts "Welcome to Black Jack!"
 		select_bet
-		start
 	end
 	def select_bet
 		puts "Place Bet: "
@@ -18,7 +17,12 @@ class BlackJack
 		if @bet <= 0 || @bet > @player.wallet
 			puts "Invalid Bet."
 			select_bet
+		else
+			start
 		end
+	end
+	def start
+		
 	end
 end
 
