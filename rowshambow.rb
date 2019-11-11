@@ -72,7 +72,13 @@
 
       if choice < 4 
         print "Place your BET! fool!".bold.colorize(:black)
-      @bet = gets.to_i
+        @bet = gets.to_i
+          if @bet > @player.money 
+            puts ""
+            puts "You don't have that kind of cash!".bold.colorize(:red)
+            puts ""
+            game_play
+          end
       end 
 
        case choice
@@ -86,8 +92,9 @@
         puts "scissor"
         scissor
        when 4
-        out
-         return 
+        puts "GO CRY TO MOMMA #{@name}!!!".bold.colorize(:red)
+        puts "#{@name} YOU ARE BROKE ANYWAYS".bold.colorize(:red)
+        return
        else
          puts "Invalid"
          game_play
@@ -119,11 +126,11 @@
       puts "whatever then #{@name}".bold.colorize(:black)
     end
     
-    def out 
-      puts "GO CRY TO MOMMA #{@name}!!!".bold.colorize(:red)
-      puts "#{@name} YOU ARE BROKE ANYWAYS".bold.colorize(:red)
-      return nil
-    end
+    # def out 
+    #   puts "GO CRY TO MOMMA #{@name}!!!".bold.colorize(:red)
+    #   puts "#{@name} YOU ARE BROKE ANYWAYS".bold.colorize(:red)
+    #   return
+    # end
 
     def rock      
       case  computer
