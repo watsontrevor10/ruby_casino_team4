@@ -12,11 +12,13 @@ class Menu
 	def initialize
 		@players = [Player.new("Adam",350), Player.new("Bill",1000), Player.new("Broke Fool", -100)]
 		@player = nil
-	end
+  end
+  
 	def update
 		@player = @user.player
 		@players = @user.players
-	end
+  end
+  
 	def start
 		@user = PlayerMenu.new(@players,@player)
 		@user.player_menu

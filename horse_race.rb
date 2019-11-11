@@ -79,7 +79,7 @@ class HorseRace
     puts "Go!!!"
     sleep(3)
     puts `clear`
-    puts "And their off!"
+    puts "And they're off!"
     puts " ~___/>  ~___/>  ~___/> ~___/>"
     puts " |  |     |  |    |  |   |  | "
   end
