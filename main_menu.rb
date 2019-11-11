@@ -7,51 +7,6 @@ require_relative 'player'
 require "pry"
 require "colorize"
 
-class Player
-	attr_accessor :name, :wallet
-
-  def initialize(name, wallet)
-    # main variables
-		@name = name
-		@wallet = Wallet.new
-	end
-	
-	# if player wins call this method with bet val
-	def win(val)
-		@wallet.add(val)
-	end
-
-	# if player loses call this method with bet val
-	def lose(val)
-		@wallet.add(-1 * val)
-	end
-
-	def kick
-		puts "You are broke, good bye!"
-		exit
-	end
-
-	# to show player's current money, call this method
-	def money
-		if @wallet.neg?
-			kick
-		end
-		return @wallet.player_wallet
-	end
-end
-
-class Wallet
-	attr_accessor :player_wallet
-  def initialize
-    # main wallet variable
-    @player_wallet = 500
-  end
-	def add(val)
-    @player_wallet += val
-  end
-
-end
-
 class Menu
 	attr_accessor :player, :players
 	def initialize

@@ -46,13 +46,16 @@ class Wallet
   def initialize(val)
     # main wallet variable
     @amount =  val
-  end
+	end
+	
 	def add(val)
 		@amount += val
 	end
+
 	def neg?
 		@amount < 0
 	end
+	
 end
 
 class PlayerMenu

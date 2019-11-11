@@ -5,7 +5,7 @@ class Roulette
 	def initialize(player)
     @player = player
     puts ""
-    puts "-- Welcome to Roulette! --".upcase.colorize(:green)
+    puts "-- Welcome to Roulette! --".upcase.colorize(:green)    
     @bet = nil
     @iter = 0
     @black = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35]
@@ -23,10 +23,10 @@ class Roulette
     case @bet_type
       when "quit", "q"
         puts ""
-        puts "Thank you for playing"
+        puts "Thank you for playing".colorize(:green)
         return nil
       when "color" 
-        puts "Do you bet on Red or Black?"
+        puts "Do you bet on " +"Red ".colorize(:red) + "or Black?".colorize(:black)
         puts "> "
         @color_choice = gets.strip.downcase
         color_bet_checker
@@ -34,15 +34,19 @@ class Roulette
         puts "Pick a number between 1 - 36"
         puts "> "
         @number_choice = gets.to_i
-        puts "Place your bet!"
-        print "> "
-        @bet = gets.to_i
-        number_start
+          if @number_choice < 1 || @number_choice > 36
+            puts "Invalid choice, try again"
+            bet_type_initiator
+          else
+            puts "Place your bet!".colorize(:orange)
+            print "> "
+            @bet = gets.to_i
+            number_start
+          end
       else  
         puts "Invalid choice, try again"
-        bet_checker     
+        bet_type_initiator     
     end
-
   end
 
 def color_bet_checker
@@ -64,19 +68,12 @@ end
 
 def color_start
 
-	#	puts "Computer guess: #{win}" #remove eventually, for troubleshooting
+	#	puts "Computer guess: #{win}"  (for troubleshooting)
   puts ""  
   puts "Current bet: #{@bet}"
-    
-    # if @iter > 0
-    #   puts ""
-		# 	puts "Make another guess (red/black) to keep playing or press any other key to quit:"
-    # else
-    #   puts ""
-		# 	puts "Make a guess (red/black):"
-    # end
-    
-    #choice = gets.strip.downcase
+  puts ""
+  puts "Wheel Spinning . . . "
+  sleep(2)
     
 	case @color_choice
     when "red"
@@ -124,7 +121,7 @@ def color_start
 
     puts "*Wheel Spinning*"
     sleep(2)
-    
+
     if @red.include? @number_choice
       if number_win == @number_choice
         player.lose(@bet * 35)
@@ -159,31 +156,4 @@ def color_start
 
 end
 
- #make bet
-    #choose between red or black 
-    #randomizes red/black
-    #if guess == computer selection then win + add money to wallet
-    #if guess != computer selection then lose + minus money from wallet
-      #need an if statment for each guess type: red or black 
-
-      # add numbers 0-36, alternates between black and red
-      # Black
-
-# Black - 0, 2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35
-# Red - 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36
-
-# 1 + rand(36) 
-# if @red.include? computer
-# OR 
-# Red || black
-
-# Bet a number or color? 
-
-# Which number? 
-# OR
-# Which color? 
-
-# Payout 
-
-# Single number = 35*bet
-# Color = 1*bet
+ 
