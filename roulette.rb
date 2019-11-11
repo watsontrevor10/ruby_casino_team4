@@ -4,6 +4,7 @@ class Roulette
 
 	def initialize(player)
     @player = player
+    system 'clear'
     puts ""
     puts "-- Welcome to Roulette! --".upcase.colorize(:green)    
     @bet = nil
@@ -15,7 +16,7 @@ class Roulette
   
   def bet_type_initiator 
     puts ""
-    puts "What type of bet do you want to place: Color or Number?"
+    puts "What type of bet do you want to place: " + "Color ".green + "or " + "Number?".black
     print "> "
     
     @bet_type = gets.strip.downcase
@@ -35,16 +36,16 @@ class Roulette
         puts "> "
         @number_choice = gets.to_i
           if @number_choice < 1 || @number_choice > 36
-            puts "Invalid choice, try again"
+            puts "Invalid choice, try again".red
             bet_type_initiator
           else
-            puts "Place your bet!".colorize(:orange)
+            puts "Place your bet!".orange
             print "> "
             @bet = gets.to_i
             number_start
           end
       else  
-        puts "Invalid choice, try again"
+        puts "Invalid choice, try again".red
         bet_type_initiator     
     end
   end
@@ -56,12 +57,12 @@ def color_bet_checker
       if rand(2) == 0
 			@color_win = "black"
       end
-    puts "Place your bet!"
+    puts "Place your bet!".orange
     print "> "
     @bet = gets.to_i
     color_start
   else 
-    puts "Invalid response, try again."
+    puts "Invalid response, try again.".red
     bet_type_initiator
   end
 end
@@ -72,7 +73,7 @@ def color_start
   puts ""  
   puts "Current bet: #{@bet}"
   puts ""
-  puts "Wheel Spinning . . . "
+  puts "Wheel Spinning . . . ".yellow
   sleep(2)
     
 	case @color_choice
@@ -98,7 +99,7 @@ def color_start
       end
     when "quit", "q"
       puts ""
-      puts "Thank you for playing"
+      puts "Thank you for playing".yellow
       return
 		else
       if @iter > 0
@@ -120,6 +121,7 @@ def color_start
     number_win = 1 + rand(36)
 
     puts "*Wheel Spinning*"
+    puts ""
     sleep(2)
 
     if @red.include? @number_choice
@@ -130,19 +132,19 @@ def color_start
         #puts "Your wallet is now: $#{@player.money}"
       else 
         player.lose(@bet * 35)
-        puts "Sorry, you lose!  LOL!"
+        puts "Sorry, you lose!  LOL!".colorize(:red)
         puts ""
         #puts "Your wallet is now: $#{@player.money}"
       end
     else
       if number_win == @number_choice
         player.lose(@bet * 35)
-        puts "Congrats!  You Win!"
+        puts "Congrats!  You Win!".green
         puts ""
         #puts "Your wallet is now: $#{@player.money}"
       else 
         player.lose(@bet * 35)
-        puts "Sorry, you lose!  LOL!"
+        puts "Sorry, you lose!  LOL!".red
         puts ""
         #puts "Your wallet is now: $#{@player.money}"
       end
